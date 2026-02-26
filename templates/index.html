@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Compose Email{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>Compose Email</h1>
+  <p class="subtitle">Describe what you want to say — the AI will draft it for you.</p>
+
+  {% if error %}
+  <div class="alert alert-error">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" action="/draft">
+    <label for="essence">Email Essence <span class="required">*</span></label>
+    <textarea id="essence" name="essence" rows="3" placeholder="e.g. Ask my professor for a one-week deadline extension for the final project" required>{{ essence if essence }}</textarea>
+
+    <label for="recipient_email">Recipient Email <span class="required">*</span></label>
+    <input id="recipient_email" type="email" name="recipient_email" placeholder="recipient@example.com" value="{{ recipient_email if recipient_email }}" required />
+
+    <label for="recipient_name">Recipient Name <span class="optional">(optional)</span></label>
+    <input id="recipient_name" type="text" name="recipient_name" placeholder="Dr. Smith" />
+
+    <label for="sender_name">Your Name <span class="optional">(optional — uses default from .env)</span></label>
+    <input id="sender_name" type="text" name="sender_name" placeholder="Jane Doe" />
+
+    <label for="subject_hint">Subject Hint <span class="optional">(optional — AI will generate one)</span></label>
+    <input id="subject_hint" type="text" name="subject_hint" placeholder="Deadline Extension Request" />
+
+    <button type="submit" class="btn btn-primary">✨ Draft Email</button>
+  </form>
+</div>
+{% endblock %}

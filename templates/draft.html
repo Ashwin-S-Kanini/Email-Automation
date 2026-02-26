@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Review Draft{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>Review &amp; Send</h1>
+  <p class="subtitle">Edit the draft below before sending.</p>
+
+  {% if success %}
+  <div class="alert alert-success">{{ success }}</div>
+  {% endif %}
+
+  {% if error %}
+  <div class="alert alert-error">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" action="/send">
+    <input type="hidden" name="recipient_email" value="{{ recipient_email }}" />
+
+    <label for="subject">Subject</label>
+    <input id="subject" type="text" name="subject" value="{{ subject }}" required />
+
+    <label for="body">Email Body</label>
+    <textarea id="body" name="body" rows="14" required>{{ body }}</textarea>
+
+    <div class="row">
+      <a href="/" class="btn btn-secondary">← Start Over</a>
+      <button type="submit" class="btn btn-primary">📤 Send to {{ recipient_email }}</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
